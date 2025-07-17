@@ -21,8 +21,10 @@ The user must then input their chosen value (e.g. 5) and the program will then d
 To run this program, you will first need to install Python on your computer.
 
 1. Save the program. This can be done by copy and pasting the codes for the .py files directly into your Python application. Then simply saving them all in the same folder.
-2. Open the folder in your Python application ensuring all the correct files are in the folder.
-3. Run the program.
+2. Install pytest. Open your terminal and type:
+   ```pip install pytest```
+4. Open the folder in your Python application ensuring all the correct files are in the folder.
+5. Run the program.
 
 ### Gameplay
 
@@ -35,14 +37,15 @@ To run this program, you will first need to install Python on your computer.
 
 ### Technical Documentation
 
-The program consists of 4 python files that contain several functions that work together to create the quiz.
+The program consists of 5 python files that contain several functions that work together to create the quiz.
 
-It is modularized into 4 sections:
+It is modularized into 4 sections, plus a dedicated test file.
 
 1. main.py – This is the main call to start the quiz.
 2. equation_generator – This is where the quiz questions are created.
 3. quiz_logic – This is where the users answer is checked to see if it is correct.
 4. user_interaction – This is what talks directly to the user such as displaying messages and calling for inputs from the user.
+5. test_user_interaction.py - Contains tests for the user_interaction module.
 
 ### Functions Overview
 
@@ -50,15 +53,16 @@ The programmes functionality is distributed amongst these files through 7 functi
 
 - generate_equation() : This creates a random multiplication question.
 - get_user_guess() : Gets the users answer and ensures it is a valid integer.
-- display_message(message) : Displays messages to the user.
-- display_equation(equation) : Displays the equation to the user.
-- display_score(score, num_questions) : Displays the final score.
+- get_display_message(message) : Returns messages to the user.
+- get_display_equation(equation) : Returns the equation to the user.
+- get_display_score(score, num_questions) : Returns the final score.
 - answer_check(user_answer, correct_answer) : Checks the users answer against the correct answer.
-- run_quiz(num_questions=10) : Starts the program calling all the functions and sets the amount of questions.
+- run_quiz(num_questions=10) : Starts the program, calling all the functions and sets the amount of questions.
 
 ### Dependencies
 
-The program relies on only Pythons built in ‘random’ module (used in equation_generator.py). No external libraries need to be installed.
+The program relies on only Pythons built in ‘random’ module (used in equation_generator.py).
+For testing, the external library pytest needs to be installed.
 
 ### Code Explanation
 
@@ -93,36 +97,36 @@ The program relies on only Pythons built in ‘random’ module (used in equatio
 *Returns:* The user's answer as a valid integer.
 
 
-**2. display_message(message)**
+**2. get_display_message(message)**
 
-*Purpose:* Displays a message string to the console.
+*Purpose:* To generate a message string.
 
-*Parameters:* message (str): The text to be displayed.
+*Parameters:* message (str): The text to be generated.
 
-*Returns:* None.
-
-
-**3. display_equation(equation)**
-
-*Purpose:* Displays the equation string to the console.
-
-*Parameters:* equation (str): The equation string to be displayed.
-
-*Returns:* None
+*Returns:* The genereated message string.
 
 
-**4. display_score(score, num_questions)**
+**3. get_display_equation(equation)**
 
-*Purpose:* Displays the final quiz score to the user.
+*Purpose:* Generates the equation string.
+
+*Parameters:* equation (str): The equation to be generated.
+
+*Returns:* The generated equation string.
+
+
+**4. get_display_score(score, num_questions)**
+
+*Purpose:* Generates the final quiz score message.
 
 *Parameters:*
 
 - score: The number of correct answers as an integer.
 - num_questions: The total number of questions as an integer.
 
-*Logic:* Checks to see if score = num_scor =e and displays congratulations, if not then it just returns the score.
+*Logic:* Checks to see if score = num_questions and checks if a congratulations message should be generated.
 
-*Returns:* None.
+*Returns:* The generated score message string
 
 **quiz_logic.py**
 
@@ -156,10 +160,29 @@ The program relies on only Pythons built in ‘random’ module (used in equatio
   In each iteration:
   
 1. Calls generate_equation() (from equation_generator.py) to get a new equation.
-2. Calls display_equation() (from user_interaction.py) to print the equation.
+2. Calls print(get_display_equation()) (from user_interaction.py) to print the equation.
 3. Calls get_user_guess() (from user_interaction.py) to get and validate the user's response.
 4. Calls answer_check() (from quiz_logic.py) to verify the user_response.
 5. Provides feedback using display_message() and updates the score.
-6. After the loop, it calls display_score() (from user_interaction.py) to present the final results.
+- After the loop, it calls print(get_display_score_message()) (from user_interaction.py) to present the final results.
 
 *Returns:* None
+
+### Testing
+
+To ensure the program works correctly, I have added automated tests. These tests check individual parts of the code to make sure they behave as expected.
+
+**Test Files**
+
+- test_user_interaction.py : Contains tests for the message-generating functions (get_display_message(), (get_display_equation(), get_display_score_message()).
+
+**How to run tests**
+
+1. Open your terminal.
+2. Navigate to the folder where the python files are contained.
+3. Type the command:
+
+   ```pytest```
+
+5. If all tests pass you will see it say 4 tests passed.
+6. If a test does not pass, it will tell you which one failed and why.
