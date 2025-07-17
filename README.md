@@ -151,14 +151,15 @@ The program relies on only Pythons built in ‘random’ module (used in equatio
 
 - Starts the score at 0.
 - Uses display_message() to print a welcome message.
-- Iterates num_questions times using a for loop.
-- In each iteration:
+- Iterates the specified amount of times in num_questions using a for loop.
 
-                   1. Calls generate_equation() (from equation_generator.py) to get a new equation.
-                   2. Calls display_equation() (from user_interaction.py) to print the equation.
-                   3. Calls get_user_guess() (from user_interaction.py) to get and validate the user's response.
-                   4. Calls answer_check() (from quiz_logic.py) to verify the user_response.
-                   5. Provides feedback using display_message() and updates the score.
-                   6. After the loop, it calls display_score() (from user_interaction.py) to present the final results.
+  In each iteration:
+  
+1. Calls generate_equation() (from equation_generator.py) to get a new equation.
+2. Calls display_equation() (from user_interaction.py) to print the equation.
+3. Calls get_user_guess() (from user_interaction.py) to get and validate the user's response.
+4. Calls answer_check() (from quiz_logic.py) to verify the user_response.
+5. Provides feedback using display_message() and updates the score.
+6. After the loop, it calls display_score() (from user_interaction.py) to present the final results.
 
 *Returns:* None
